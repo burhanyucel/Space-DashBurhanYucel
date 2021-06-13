@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        
     }
 
     private void Start()
@@ -94,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (other.gameObject.tag == "platform")
             {
+                AudioManager.Instance.explosion.Play();
                 GameManager.Instance.Lose();
             }
 
@@ -105,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (other.gameObject.tag == "collidscore")
             {
+                Score++;
                 if (score > highScore)
                 {
                     highScore = score;
@@ -115,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
                     PlayerPrefs.GetInt("bestScore");
                 }
                 
-                Score++;
+             
             }
 
 
