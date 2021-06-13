@@ -34,6 +34,7 @@ public class MapGeneration : MonoBehaviour
 
     private void CreateObstacle()
     {
+        if (!GameManager.Instance.isStart) return;
         GameObject obstacle = Instantiate(obstaclePrefab, transform.position, quaternion.identity,transform);
         Vector2 position = obstacle.transform.position;
         position.x = Random.Range(-1.4f, 1.4f);
@@ -42,9 +43,9 @@ public class MapGeneration : MonoBehaviour
 
     private void CreateFuel()
     {
+        if (!GameManager.Instance.isStart) return;
         GameObject fuel = Instantiate(fuelPrefab, transform.position, quaternion.identity);
         fuel.transform.position = new Vector2(Random.Range(-screenBounds.x, screenBounds.x), screenBounds.y);
-        
     }
 
     

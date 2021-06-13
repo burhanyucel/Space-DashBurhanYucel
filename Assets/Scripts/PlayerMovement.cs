@@ -8,24 +8,25 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    public bool dead;
+    public Rigidbody2D rb;
     public float moveSpeed = 2f;
-    public int score;
+    private int score;
     public TextMeshProUGUI ScoreText;
-    public Button btnPlay;
-    public ParticleSystem Emission;
-    public string skortutan;
     public Camera mainCamera;
-    private Vector2 startPos;
-    public static bool isStart;
-    public MapGeneration mgenerator;
+
+    public int Score
+    {
+        get => score;
+        set
+        {
+            score = value;
+            ScoreText.text = ("" + value);
+        }
+    }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        startPos = transform.position;
-        skortutan = ScoreText.text;
     }
 
     private void Start()
@@ -36,25 +37,22 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ScoreText.text = ("" + score);
-        if (isStart)
+        if (GameManager.Instance.isStart)
         {
             MovePlayer();
         }
 
     }
 
-    public void startToPlay()
-    {
-        isStart = true;
-        mgenerator.init();
-    }
+   
 
     private float _startPosX, _endPosX, _mousePosDeltaX;
 
     private void MovePlayer()
     {
-        if (dead) return;
+        if (!GameManager.Instance.isStart) return;
+        
+#if UNITY_ANDROID
         if (Input.touchCount > 0)
         {
             Touch tıklama = Input.GetTouch(0);
@@ -64,64 +62,50 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-
-        /*if (Input.GetMouseButtonDown(0))
-        {
-            _startPosX = Input.mousePosition.x;
-            _mousePosDeltaX = 0;
-        }
-
-        else if (Input.GetMouseButton(0))
-        {
-            _mousePosDeltaX = Input.mousePosition.x - _startPosX;
-            _startPosX = Mathf.Lerp(_startPosX, Input.mousePosition.x, 0.05f);
-        }
-
-        else if (Input.GetMouseButtonUp(0))
-        {
-            _startPosX = 0;
-            _mousePosDeltaX = 0;
-        }
-
-        var playerPos = transform.position;
-        var speed = 2f;
-        playerPos.x += _mousePosDeltaX * Time.deltaTime * .04f * speed;
-        playerPos.x = Mathf.Clamp(playerPos.x, -4f, 4f);
-        transform.position = playerPos;
-    }*/
+        #endif
+        
+        
+        #if UNITY_EDITOR
+            if (Input.GetAxisRaw("Horizontal") > 0f)
+            {
+                rb.velocity = new Vector2(moveSpeed, 0);
+            }
+        
+            else if (Input.GetAxisRaw("Horizontal") < 0f)
+            {
+                rb.velocity = new Vector2(-moveSpeed, 0);
+            }
+            else
+            {
+                rb.velocity = Vector2.zero;
+            }
+        
+        #endif
     }
 
     void OnTriggerEnter2D(Collider2D other)
         {
-            if (dead)
+            if (!GameManager.Instance.isStart)
             {
                 return;
             }
 
             if (other.gameObject.tag == "platform")
             {
-
-                dead = true;
-                other.isTrigger = false;
-                rb.bodyType = RigidbodyType2D.Dynamic;
-                Debug.Log("gg");
-                rb.AddForce(Vector2.down * 10);
-                rb.AddTorque(100);
-                RestartAfterGame();
+                GameManager.Instance.Lose();
             }
 
             if (other.gameObject.tag == "rocketfuel")
             {
-                score += 10;
-                ScoreText.text = skortutan;
+                GameManager.Instance.fuelController.AddFuel();
+                Score += 10;
                 Destroy(other.gameObject);
 
             }
 
             if (other.gameObject.tag == "collidscore")
             {
-                score++;
-                ScoreText.text = skortutan;
+                Score++;
             }
 
 
@@ -135,16 +119,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        void RestartAfterGame()
-        {
-            Invoke("RestartGame", 3f);
-        }
+     
 
-        void RestartGame()
-        {
-            isStart = false;
-            UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
-        }
+        
 
     }
 

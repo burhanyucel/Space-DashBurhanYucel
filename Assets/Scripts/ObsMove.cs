@@ -5,15 +5,12 @@ using UnityEngine;
 
 public class ObsMove : MonoBehaviour
 {
-    public static float mSpeed = 5f;
-
-   
-
-    // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.isStart) return;
+        
         Vector2 pos = transform.position;
-        pos.y -= mSpeed * Time.deltaTime ;
+        pos.y -= GameManager.Instance.ObsSpeed * Time.deltaTime ;
         transform.position = pos;
         //Debug.Log(mSpeed);
     }
