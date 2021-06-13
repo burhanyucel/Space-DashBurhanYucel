@@ -1,11 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
+    public TextMeshProUGUI scoreText;
     // Start is called before the first frame update
     void Awake()
     {
@@ -44,7 +48,7 @@ public class GameManager : MonoBehaviour
     {
         if (!isStart) return;
         
-        
+        scoreText.text = "BEST \n" + PlayerPrefs.GetInt("bestScore");
         player.rb.bodyType = RigidbodyType2D.Dynamic;
         player.rb.AddForce(Vector2.down * 10);
         player.rb.AddTorque(100);

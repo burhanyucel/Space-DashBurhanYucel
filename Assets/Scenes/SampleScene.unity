@@ -651,6 +651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd759795ff632ac468176f65148da454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 1373590688}
   isStart: 0
   player: {fileID: 984270360}
   fuelController: {fileID: 799382169}
@@ -5969,9 +5970,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'HighScore
-
-    10000'
+  m_text: High Score
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 267d177ac2e20ac4f9072fdffb33c322, type: 2}
   m_sharedMaterial: {fileID: 3776077782438029020, guid: 267d177ac2e20ac4f9072fdffb33c322,

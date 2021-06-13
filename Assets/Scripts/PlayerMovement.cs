@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public float moveSpeed = 2f;
     private int score;
+    private int highScore;
     public TextMeshProUGUI ScoreText;
     public Camera mainCamera;
 
@@ -31,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        
+        highScore = PlayerPrefs.GetInt("bestScore");
     }
 
     // Update is called once per frame
@@ -98,13 +99,21 @@ public class PlayerMovement : MonoBehaviour
             if (other.gameObject.tag == "rocketfuel")
             {
                 GameManager.Instance.fuelController.AddFuel();
-                Score += 10;
                 Destroy(other.gameObject);
-
             }
 
             if (other.gameObject.tag == "collidscore")
             {
+                if (score > highScore)
+                {
+                    highScore = score;
+                    PlayerPrefs.SetInt("bestScore", highScore);
+                }
+                else
+                {
+                    PlayerPrefs.GetInt("bestScore");
+                }
+                
                 Score++;
             }
 
