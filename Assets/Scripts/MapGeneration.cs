@@ -47,8 +47,8 @@ public class MapGeneration : MonoBehaviour
         GameObject fuel = Instantiate(fuelPrefab, transform.position, quaternion.identity);
         fuel.transform.position = new Vector2(Random.Range(-screenBounds.x, screenBounds.x), screenBounds.y);
     }
-
     
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         

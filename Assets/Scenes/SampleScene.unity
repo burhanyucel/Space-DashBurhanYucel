@@ -1002,8 +1002,8 @@ GameObject:
   - component: {fileID: 984270358}
   - component: {fileID: 984270357}
   - component: {fileID: 984270359}
-  - component: {fileID: 984270360}
   - component: {fileID: 984270361}
+  - component: {fileID: 984270360}
   - component: {fileID: 984270362}
   m_Layer: 0
   m_Name: playerocket

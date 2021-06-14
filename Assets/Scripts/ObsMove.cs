@@ -13,6 +13,10 @@ public class ObsMove : MonoBehaviour
         pos.y -= GameManager.Instance.ObsSpeed * Time.deltaTime ;
         transform.position = pos;
         //Debug.Log(mSpeed);
+        if (transform.position.y<-10f)
+        {
+            Destroy(GameObject.FindWithTag("rocketfuel"));
+        }
     }
     
 }

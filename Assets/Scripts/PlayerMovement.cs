@@ -14,7 +14,10 @@ public class PlayerMovement : MonoBehaviour
     private int highScore;
     public TextMeshProUGUI ScoreText;
     public Camera mainCamera;
-
+   
+    
+    public static PlayerMovement Instance { get; private set; }
+    
     public int Score
     {
         get => score;
@@ -38,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (GameManager.Instance.isStart)
         {
             MovePlayer();

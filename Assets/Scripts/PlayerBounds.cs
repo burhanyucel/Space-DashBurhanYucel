@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class PlayerBounds : MonoBehaviour
     }
 
     // Update is called once per frame
+    
     void LateUpdate()
     {
         Vector3 viewPos = transform.position;
