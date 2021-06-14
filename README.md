@@ -1,5 +1,3 @@
-# Space-DashBurhanYucel
-
 Hazırlayan : Burhan Yücel
 
 Unity 2D ile geliştirilmiş basit bir arcade oyun.
